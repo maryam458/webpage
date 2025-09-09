@@ -1,14 +1,125 @@
-<html>
-  <head>
-    <title>CS 1030 Web Page Project</title>
-    <!-- Replace the content in the following line with your name. -->
-    <meta name="MARYAM" content="MARYAM">
-  </head>
-  <body>
-    <!-- Replace the lines in this body with your content. -->
-    <h1>CS 1030 - Web page Project</h1>
-    <img src="logo.png">
-    <p>Hello world!</p>
-    <p><a href="secondpage.html">More</a></p>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Currency Converter - Maryam</title>
+  <meta name="author" content="MARYAM">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f9;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header, footer {
+      background: #2b5797;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .converter {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      width: 300px;
+      text-align: center;
+    }
+
+    .converter input, .converter select, .converter button {
+      margin: 0.5rem 0;
+      padding: 0.6rem;
+      width: 90%;
+    }
+
+    #convertBtn {
+      background: #2b5797;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    #convertBtn:hover {
+      background: #1a3560;
+    }
+
+    #result {
+      margin-top: 1rem;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>USD ↔ EUR Currency Converter</h1>
+  </header>
+
+  <main>
+    <section class="converter">
+      <label for="amount">Enter Amount:</label>
+      <input type="number" id="amount" placeholder="0.00" />
+
+      <label for="direction">Convert:</label>
+      <select id="direction">
+        <option value="usdToEur">USD → EUR</option>
+        <option value="eurToUsd">EUR → USD</option>
+      </select>
+
+      <button id="convertBtn">Convert</button>
+
+      <p id="result"></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Maryam</p>
+    <p><a href="https://github.com/YOURUSERNAME/YOURREPO" target="_blank">View my GitHub Repository</a></p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const amountInput = document.getElementById("amount");
+      const directionSelect = document.getElementById("direction");
+      const convertBtn = document.getElementById("convertBtn");
+      const resultDisplay = document.getElementById("result");
+
+      // Static exchange rate
+      const usdToEurRate = 0.92;
+      const eurToUsdRate = 1.09;
+
+      convertBtn.addEventListener("click", () => {
+        const amount = parseFloat(amountInput.value);
+        if (isNaN(amount) || amount <= 0) {
+          resultDisplay.textContent = "Please enter a valid amount.";
+          return;
+        }
+
+        let result;
+        if (directionSelect.value === "usdToEur") {
+          result = (amount * usdToEurRate).toFixed(2);
+          resultDisplay.textContent = `$${amount} USD = €${result} EUR`;
+        } else {
+          result = (amount * eurToUsdRate).toFixed(2);
+          resultDisplay.textContent = `€${amount} EUR = $${result} USD`;
+        }
+      });
+    });
+  </script>
+</body>
 </html>
