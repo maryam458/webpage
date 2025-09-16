@@ -1,29 +1,52 @@
-This is a template for a CS1030 web page project.
+# SPA To-Do Application
 
-1. Make your own copy of this repository:
-    * Click the **Use this template** button (upper-right of the repository page).
-    * You must be signed into GitHub to see this button
+## Project Overview
+This project is a simple **Single Page Application (SPA)** developed with **HTML5, CSS3, and JavaScript**.  
+The purpose is to demonstrate SPA behavior using client-side routing, state management, and dynamic updates — all running in the browser without server-side components.  
 
-2. Enable GitHub Pages:
-    * Go to the _Settings > Pages_ menu.
-    * Choose _Source:_ **Deploy from a branch**
-    * Choose _Branch:_ **main**
-    * Click **Save** -- _do not_ choose a Theme.
-       * Choosing a Theme may replace some template files.
-    * It may take 1 to 5 minutes for GitHub to publish your website.
+The application was created as part of a project to explore how **generative AI tools** can assist in developing interactive web applications.  
 
-3. Note your website URL:
-   * Example: https:&ThinSpace;//_youraccount_.github.io/_repositoryname_
+---
 
-4. Open your website in a browser to verify it works.
-    * If it doesn't load, wait a few minutes, then refresh.
-    * Double-check your GitHub Pages settings
+## Features and Functionality
+- **Single Page Application behavior**
+  - Loads once and dynamically updates content
+  - Smooth client-side navigation (`#/home`, `#/tasks`, `#/about`)
+- **Task management**
+  - Add and delete tasks
+  - State persistence using `localStorage`
+- **Accessibility awareness**
+  - Semantic HTML structure
+  - Keyboard navigation support
+  - `aria-labels` for interactive elements
+  - Alt text and sufficient contrast
+- **Responsive layout**
+  - Works across modern web browsers
+  - Mobile-friendly
 
-5. Update your website:
-    * Open **index.html** in the GitHub web editor.
-        * Change `<meta name="author" content="REPLACE WITH YOUR NAME">` to show your name.
-        * Change the `<h1>` heading so it includes your name or a custom title.
-        * Make another visible, personal edit, such as
-            - changing colors of text or background
-            - uploading an image to the repo and updating `<img src="logo.png">`
-    * **Commit** your changes so they appear on your published site.
+---
+
+## Known Issues or Limitations
+- Basic styling (minimal animations/transitions)
+- No advanced error handling for empty inputs beyond simple checks
+- Tasks are stored only in the browser (`localStorage`) and will not sync across devices
+
+---
+
+## Future Enhancements
+- Add task completion (mark as done/undone)
+- Improve design with animations and smooth transitions
+- Add categories or due dates for tasks
+- Integrate with a backend API for persistent cloud storage
+- Dark/light mode toggle for accessibility and user preference
+
+---
+
+## Deployment
+- **GitHub Pages URL**: [Your GitHub Pages link here]  
+- **GitHub Repository URL**: [Your GitHub Repo link here]
+
+---
+
+## License
+This project is open-source and free to use for educational purposes.
