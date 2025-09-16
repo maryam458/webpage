@@ -2,167 +2,204 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SPA To-Do App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>To-Do List SPA</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    /* Basic Reset */
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      color: #333;
       line-height: 1.6;
     }
 
     header {
-      background: #333;
-      color: #fff;
-      padding: 1em;
+      background: #0073e6;
+      color: white;
+      padding: 1rem;
       text-align: center;
     }
 
-    header h1 {
-      margin: 0 0 0.5em 0;
+    nav {
+      display: flex;
+      justify-content: center;
+      background: #005bb5;
     }
 
     nav a {
-      margin: 0 1em;
-      color: #fff;
+      color: white;
+      padding: 0.75rem 1.5rem;
       text-decoration: none;
+      display: block;
     }
 
-    nav a:hover,
-    nav a:focus {
-      text-decoration: underline;
+    nav a:hover, nav a:focus {
+      background: #004494;
     }
 
     main {
-      padding: 1.5em;
-      min-height: 60vh;
+      max-width: 700px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      margin-bottom: 1rem;
+    }
+
+    form {
+      margin-bottom: 1.5rem;
+    }
+
+    input[type="text"] {
+      width: 70%;
+      padding: 0.5rem;
+      margin-right: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      background: #0073e6;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #005bb5;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    li:last-child {
+      border-bottom: none;
     }
 
     footer {
       text-align: center;
-      background: #f4f4f4;
-      padding: 1em;
-      font-size: 0.9em;
-      color: #555;
-    }
-
-    button {
-      padding: 0.5em 1em;
-      margin-top: 0.5em;
-      border: none;
-      border-radius: 4px;
-      background: #333;
-      color: #fff;
-      cursor: pointer;
-    }
-
-    button:hover,
-    button:focus {
-      background: #555;
-    }
-
-    input {
-      padding: 0.5em;
-      margin-right: 0.5em;
-      border: 1px solid #ccc;
-      border-radius: 4px;
+      padding: 1rem;
+      margin-top: 2rem;
+      background: #eee;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>My To-Do SPA</h1>
-    <nav>
-      <a href="#/home" id="nav-home">Home</a>
-      <a href="#/tasks" id="nav-tasks">Tasks</a>
-      <a href="#/about" id="nav-about">About</a>
-    </nav>
+    <h1>To-Do List SPA</h1>
   </header>
-
-  <main id="app" tabindex="0">
-    <!-- Dynamic content goes here -->
+  <nav>
+    <a href="#/home">Home</a>
+    <a href="#/tasks">Tasks</a>
+    <a href="#/about">About</a>
+  </nav>
+  <main id="app">
+    <!-- Dynamic content loads here -->
   </main>
-
   <footer>
-    <p>&copy; 2025 My SPA Project</p>
+    <p>&copy; 2025 To-Do List SPA</p>
   </footer>
 
   <script>
-    // Application State
+    // App State
     const state = {
       tasks: JSON.parse(localStorage.getItem("tasks")) || []
     };
 
-    // Save state to localStorage
+    // Save tasks to localStorage
     function saveTasks() {
       localStorage.setItem("tasks", JSON.stringify(state.tasks));
     }
 
-    // Views
-    const routes = {
-      "/home": () => `
+    // Render functions for routes
+    function renderHome() {
+      return `
         <h2>Welcome</h2>
-        <p>This is a simple Single Page Application (SPA) built with HTML, CSS, and JavaScript.</p>
-        <p>Use the navigation links above to explore different views.</p>
-      `,
-      "/tasks": () => `
-        <h2>My Tasks</h2>
-        <form id="task-form">
-          <input type="text" id="task-input" placeholder="Add a new task" aria-label="New Task" required />
-          <button type="submit">Add</button>
+        <p>This is a simple Single Page Application (SPA) built with HTML, CSS, and JavaScript. 
+        Use the navigation links above to explore the app.</p>
+      `;
+    }
+
+    function renderTasks() {
+      return `
+        <h2>Your Tasks</h2>
+        <form id="taskForm">
+          <input type="text" id="taskInput" placeholder="Enter a new task" aria-label="New Task"/>
+          <button type="submit">Add Task</button>
         </form>
-        <ul id="task-list">
-          ${state.tasks.map((t, i) => `
+        <ul>
+          ${state.tasks.map((task, i) => `
             <li>
-              ${t}
-              <button data-index="${i}" class="delete-btn" aria-label="Delete task ${t}">❌</button>
+              <span>${task}</span>
+              <button onclick="deleteTask(${i})">Delete</button>
             </li>
           `).join("")}
         </ul>
-      `,
-      "/about": () => `
-        <h2>About</h2>
-        <p>This SPA demonstrates:</p>
-        <ul>
-          <li>Single-page routing</li>
-          <li>Dynamic content updates</li>
-          <li>Application state management</li>
-          <li>Accessibility basics</li>
-        </ul>
-      `
-    };
+      `;
+    }
+
+    function renderAbout() {
+      return `
+        <h2>About This App</h2>
+        <p>This To-Do List SPA demonstrates client-side routing, state management, and dynamic updates without reloading the page.</p>
+        <p>Tasks are saved in your browser using <code>localStorage</code> so they persist even after refreshing.</p>
+      `;
+    }
+
+    // Delete a task
+    function deleteTask(index) {
+      state.tasks.splice(index, 1);
+      saveTasks();
+      router();
+    }
 
     // Router
     function router() {
       const app = document.getElementById("app");
-      const hash = location.hash.replace("#", "") || "/home";
-      app.innerHTML = routes[hash] ? routes[hash]() : "<h2>Page Not Found</h2>";
+      const route = window.location.hash || "#/home";
 
-      // Bind task form events if on /tasks
-      if (hash === "/tasks") {
-        document.getElementById("task-form").addEventListener("submit", e => {
+      if (route === "#/home") {
+        app.innerHTML = renderHome();
+      } else if (route === "#/tasks") {
+        app.innerHTML = renderTasks();
+        document.getElementById("taskForm").addEventListener("submit", e => {
           e.preventDefault();
-          const input = document.getElementById("task-input");
-          if (input.value.trim()) {
+          const input = document.getElementById("taskInput");
+          if (input.value.trim() !== "") {
             state.tasks.push(input.value.trim());
             saveTasks();
-            router(); // re-render
+            input.value = "";
+            router(); // Re-render
           }
         });
-
-        document.querySelectorAll(".delete-btn").forEach(btn =>
-          btn.addEventListener("click", () => {
-            const index = btn.getAttribute("data-index");
-            state.tasks.splice(index, 1);
-            saveTasks();
-            router();
-          })
-        );
+      } else if (route === "#/about") {
+        app.innerHTML = renderAbout();
+      } else {
+        app.innerHTML = "<h2>404 - Page Not Found</h2>";
       }
     }
 
-    // Listen for hash changes
+    // Listen for route changes
     window.addEventListener("hashchange", router);
     window.addEventListener("load", router);
   </script>
